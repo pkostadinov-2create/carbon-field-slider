@@ -14,7 +14,7 @@ load_plugin_textdomain('carbon-field-slider', false, dirname( plugin_basename(__
 /**
  * Hook field initialization
  */
-add_action('after_setup_theme', 'crb_init_carbon_field_slider', 15);
+add_action('after_setup_theme', 'crb_init_carbon_field_slider', 16);
 function crb_init_carbon_field_slider() {
 	if ( class_exists('Carbon_Field') ) {
 		include_once dirname(__FILE__) . '/Carbon_Field_Slider.php';

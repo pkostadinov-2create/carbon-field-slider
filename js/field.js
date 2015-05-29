@@ -11,7 +11,6 @@ window.carbon = window.carbon || {};
 		// Add the events from the parent view and also include new ones
 		events: function() {
 			return _.extend({}, carbon.fields.View.prototype.events, {
-				'blur input[type="text"]': 'checkValue',
 				'slidechange .slider-holder .slider': 'checkValue',
 			});
 		},
@@ -27,19 +26,18 @@ window.carbon = window.carbon || {};
 			var model = this.model;
 			var min = model.get('min');
 			var max = model.get('max');
-			var step = 1;
+			var step = model.get('step');
 			var truncate = model.get('truncate');
 			var value = model.get('value');
 
 			if ( truncate > 0 ) {
 				_this.$('input').attr('step', 'any');
-				step = 0.0001;
 			};
 
 			_this.$('input').attr('min', min);
 			_this.$('input').attr('max', max);
 
-			this.$('.slider-holder .slider').slider({
+			_this.$('.slider-holder .slider').slider({
 				min: min,
 				max: max,
 				step: step,
@@ -58,7 +56,8 @@ window.carbon = window.carbon || {};
 		},
 
 		checkValue: function(event) {
-			var $input = this.$('input[type="text"]');
+			var $input = this.$('input');
+			var $label = this.$('label');
 			var $slider = this.$('.slider');
 			var value = $slider.slider( "value" );
 
@@ -79,6 +78,7 @@ window.carbon = window.carbon || {};
 
 			this.model.set('value', value);
 			$input.val(value);
+			$label.text(value);
 		},
 	});
 

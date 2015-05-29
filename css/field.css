@@ -1,2 +1,3 @@
 .carbon-field input[type="number"] { display: block; padding: 4px 5px 3px; width: 100%; }
 .carbon-field .slider-holder { display: block; padding: 20px 10px 10px; }
+.carbon-field .slider-label { display: inline; font-weight: bold; }
