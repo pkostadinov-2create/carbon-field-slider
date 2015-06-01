@@ -12,6 +12,7 @@ window.carbon = window.carbon || {};
 		events: function() {
 			return _.extend({}, carbon.fields.View.prototype.events, {
 				'slidechange .slider-holder .slider': 'checkValue',
+				'slide .slider-holder .slider': 'checkValue',
 			});
 		},
 
@@ -55,11 +56,10 @@ window.carbon = window.carbon || {};
 			};
 		},
 
-		checkValue: function(event) {
+		checkValue: function(event, ui) {
 			var $input = this.$('input');
 			var $label = this.$('label');
-			var $slider = this.$('.slider');
-			var value = $slider.slider( "value" );
+			var value = ui.value;
 
 			var min = this.model.get('min');
 			var max = this.model.get('max');
