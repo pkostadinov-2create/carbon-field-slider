@@ -61,8 +61,6 @@ window.carbon = window.carbon || {};
 			var $slider = this.$('.slider');
 			var value = $slider.slider( "value" );
 
-			console.log(value);
-
 			var min = this.model.get('min');
 			var max = this.model.get('max');
 			var truncate = this.model.get('truncate');
