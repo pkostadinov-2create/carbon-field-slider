@@ -2,6 +2,8 @@
 
 class Carbon_Field_Slider extends Carbon_Field_Number {
 	protected $default_step = 1;
+	protected $current_text = 'Current value: %s';
+
 	protected $step = 1;
 
 	function template() {
@@ -9,7 +11,7 @@ class Carbon_Field_Slider extends Carbon_Field_Number {
 		<input id="{{{ id }}}" type="hidden" name="{{{ name }}}" value="{{ value }}" class="regular-text" />
 
 		<div class="label-holder">
-			<?php _e('Current value:', 'crb'); ?> <label class="slider-label">{{ value }}</label>
+			<?php printf($this->current_text, '<label class="slider-label">{{ value }}</label>'); ?>
 		</div><!-- /.label-holder -->
 
 		<div class="slider-holder">
@@ -47,6 +49,11 @@ class Carbon_Field_Slider extends Carbon_Field_Number {
 
 	function set_step($step) {
 		$this->step = $step;
+		return $this;
+	}
+
+	function set_current_text($current_text) {
+		$this->current_text = $current_text;
 		return $this;
 	}
 }
