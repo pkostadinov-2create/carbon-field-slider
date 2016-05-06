@@ -1,0 +1,20 @@
+{
+    "name": "pkostadinov-2create/carbon-field-slider",
+    "description": "A basic Carbon Fields extension, that adds support for Slider type field.",
+    "keywords": ["wordpress", "carbon-field", "carbon-field-slider", "carbon"],
+    "homepage": "https://github.com/pkostadinov-2create/carbon-field-slider",
+    "type": "library",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Plamen Kostadinov",
+            "email": "pkostadinov.2create@gmail.com"
+        }
+    ],
+    "require": {
+        "pkostadinov-2create/carbon-field-number": "dev-namespaced"
+    },
+    "autoload": {
+        "files": ["carbon-field-slider.php"]
+    }
+}
