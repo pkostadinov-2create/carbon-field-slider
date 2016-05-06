@@ -2,7 +2,7 @@
 
 namespace Carbon_Fields\Field;
 
-class Slider_Field extends Field {
+class Slider_Field extends Number_Field {
 	protected $default_step = 1;
 	protected $current_text = 'Current value: %s';
 
