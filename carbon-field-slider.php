@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: Carbon Field: FIELD_NAME
-Description: Extends base Carbon fields with a FIELD_NAME field. 
+Plugin Name: Carbon Field: Slider
+Description: Extends base Carbon fields with a Slider field. 
 Version: 1.0.0
 */
 
@@ -16,7 +16,7 @@ load_plugin_textdomain('carbon-field-slider', false, dirname( plugin_basename(__
  */
 add_action('after_setup_theme', 'crb_init_carbon_field_slider', 16);
 function crb_init_carbon_field_slider() {
-	if ( class_exists('Carbon_Field') ) {
-		include_once dirname(__FILE__) . '/Carbon_Field_Slider.php';
+	if ( class_exists( 'Carbon_Fields\\Field\\Field' ) ) {
+		include_once dirname(__FILE__) . '/Slider_Field.php';
 	}
 }

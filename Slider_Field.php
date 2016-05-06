@@ -1,6 +1,8 @@
 <?php
 
-class Carbon_Field_Slider extends Carbon_Field_Number {
+namespace Carbon_Fields\Field;
+
+class Slider_Field extends Field {
 	protected $default_step = 1;
 	protected $current_text = 'Current value: %s';
 
@@ -36,15 +38,18 @@ class Carbon_Field_Slider extends Carbon_Field_Number {
 	function admin_enqueue_scripts() {
 		$template_dir = get_template_directory_uri();
 
+		// Get the current url for the carbon-fields-slider, regardless of the location
+		$template_dir .= str_replace(wp_normalize_path(get_template_directory()), '', wp_normalize_path(__DIR__));
+
 		# Include UI
 		wp_enqueue_script('jquery-ui-slider');
 		wp_enqueue_style('jquery-ui', '//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.min.css');
 
 		# Enqueue JS
-		crb_enqueue_script('carbon-field-Slider', $template_dir . '/includes/carbon-field-slider/js/field.js', array('carbon-fields'));
+		crb_enqueue_script('carbon-field-Slider', $template_dir . '/js/field.js', array('carbon-fields'));
 		
 		# Enqueue CSS
-		crb_enqueue_style('carbon-field-Slider', $template_dir . '/includes/carbon-field-slider/css/field.css');
+		crb_enqueue_style('carbon-field-Slider', $template_dir . '/css/field.css');
 	}
 
 	function set_step($step) {
