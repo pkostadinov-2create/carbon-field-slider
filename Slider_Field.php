@@ -35,7 +35,7 @@ class Slider_Field extends Number_Field {
 		return $field_data;
 	}
 
-	function admin_enqueue_scripts() {
+	static function admin_enqueue_scripts() {
 		$template_dir = get_template_directory_uri();
 
 		// Get the current url for the carbon-fields-slider, regardless of the location
