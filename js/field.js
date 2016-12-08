@@ -17,21 +17,34 @@ window.carbon = window.carbon || {};
 		 */
 		validate: function(attrs, options) {
 			var hasErrors = false;
+			var _this = this;
+			var min = _this.get('min');
+			var max = _this.get('max');
+			var step = _this.get('step');
+			var value = attrs.value;
 
-			if (attrs.value === '' || attrs.value === null) {
-				hasErrors = true;
+			var testStepValidation = ( value - min ) / step;
+
+			if ( value === '' ) {
+				hasErrors = crbl10n.message_required_field;
+			} else if ( isNaN(value) ) {
+				hasErrors = crbl10n.message_form_validation_failed;
+			} else if ( min > value || value > max ) {
+				hasErrors = crbl10n.message_form_validation_failed;
+			} else if ( testStepValidation !== parseInt( testStepValidation, 10 ) ) {
+				hasErrors = crbl10n.message_form_validation_failed;
 			}
 
 			return hasErrors;
 		}
 	});
-	
+
 	carbon.fields.View.Slider = carbon.fields.View.extend({
 		// Add the events from the parent view and also include new ones
 		events: function() {
 			return _.extend({}, carbon.fields.View.prototype.events, {
-				'slidechange .slider-holder .slider': 'checkValue',
-				'slide .slider-holder .slider': 'checkValue',
+				'slidechange .slider-holder .slider': 'updateValue',
+				'slide .slider-holder .slider': 'updateValue',
 			});
 		},
 
@@ -47,12 +60,7 @@ window.carbon = window.carbon || {};
 			var min = model.get('min');
 			var max = model.get('max');
 			var step = model.get('step');
-			var truncate = model.get('truncate');
 			var value = model.get('value');
-
-			if ( truncate > 0 ) {
-				_this.$('input').attr('step', 'any');
-			};
 
 			_this.$('input').attr('min', min);
 			_this.$('input').attr('max', max);
@@ -65,37 +73,16 @@ window.carbon = window.carbon || {};
 			});
 		},
 
-		truncateValue: function(number, truncate) {
-			truncate = truncate || 0;
-			truncate = Math.pow(10, truncate);
-			if ( number >= 0 ) {
-				return Math.floor(number * truncate) / truncate;
-			} else {
-				return Math.ceil(number * truncate) / truncate;
-			};
-		},
-
-		checkValue: function(event, ui) {
+		updateValue: function(event, ui) {
 			var $input = this.$('input');
 			var $label = this.$('label');
 			var value = ui.value;
 
-			var min = this.model.get('min');
-			var max = this.model.get('max');
-			var truncate = this.model.get('truncate');
-
-			var floatval = parseFloat(value);
-			floatval = this.truncateValue(floatval, truncate);
-
-			if ( !isNaN(floatval) && min <= floatval && floatval <= max ) {
-				value = floatval;
-			} else {
-				value = '';
-			}
-
 			this.model.set('value', value);
 			$input.val(value);
 			$label.text(value);
+
+			this.reValidate;
 		},
 	});
 

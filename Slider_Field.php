@@ -10,7 +10,7 @@ class Slider_Field extends Number_Field {
 
 	function template() {
 		?>
-		<input id="{{{ id }}}" type="hidden" name="{{{ name }}}" value="{{ value }}" class="regular-text" />
+		<input id="{{{ id }}}" type="hidden" name="{{{ name }}}" value="{{ value }}" max="{{ max }}" min="{{ min }}" step="{{ step }}" pattern="[0-9]*" class="regular-text" />
 
 		<div class="label-holder">
 			<?php printf($this->current_text, '<label class="slider-label">{{ value }}</label>'); ?>
@@ -20,19 +20,6 @@ class Slider_Field extends Number_Field {
 			<div class="slider"></div>
 		</div>
 		<?php
-	}
-
-	function to_json($load) {
-		$field_data = parent::to_json($load);
-
-		$field_data = array_merge($field_data, array(
-			'min' => is_numeric($this->min) ? $this->min : $this->default_min,
-			'max' => is_numeric($this->max) ? $this->max : $this->default_max,
-			'step' => is_numeric($this->step) ? $this->step : $this->default_step,
-			'truncate' => is_int($this->truncate) ? $this->truncate : $this->default_truncate,
-		));
-
-		return $field_data;
 	}
 
 	static function admin_enqueue_scripts() {
@@ -47,14 +34,9 @@ class Slider_Field extends Number_Field {
 
 		# Enqueue JS
 		crb_enqueue_script('carbon-field-Slider', $template_dir . '/js/field.js', array('carbon-fields'));
-		
+
 		# Enqueue CSS
 		crb_enqueue_style('carbon-field-Slider', $template_dir . '/css/field.css');
-	}
-
-	function set_step($step) {
-		$this->step = $step;
-		return $this;
 	}
 
 	function set_current_text($current_text) {
